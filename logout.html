@@ -1,0 +1,103 @@
+﻿<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />   
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>تم تسجيل الخروج</title>
+<link rel="stylesheet" href="style.css">
+<script>
+    function openLogin() {
+	if (window.name != 'hotspot_logout') return true;
+	open('$(link-login)', '_blank', '');
+	window.close();
+	return false;
+    }
+</script>
+
+<script>
+ var u = window.document.URL.toString();
+if(u.search("erase-cookie") != -1) {
+setCookie("uname","");
+setCookie("paswd","");
+setCookie("loginID","");
+setCookie2("loginID","");
+delete_cookie("uname");
+delete_cookie("paswd");
+delete_cookie("loginID");	
+
+}
+ function delete_cookie( name ) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function setCookie(cname,cvalue) {
+    var d = new Date();
+    d.setTime(d.getTime() -10000 );
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+function setCookie2(cname,cvalue) {
+    var d = new Date();
+    d.setTime(d.getTime() -10000 );
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/login";
+}
+ 
+ </script>
+</head>
+
+<body>
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap">
+                <h1>
+					<b>لقد قمت بتسجيل الخروج   </b>
+<b> عد سريعاً ..</b>
+				</h1> 
+
+			<!--	
+ <img src="1.png" width="100%" />
+  -->	
+ 
+	<br><br>
+<table border="0" class="tabula" dir="rtl">
+ 
+ 
+ 
+ 
+			<tr><td align="right"><b><font size="2">متصل منذ:</font></b></td><td><b>
+		<font size="2">$(uptime)</font></b></td></tr>
+		
+	<tr><td align="right"><b><font size="2">اجمالي التحميل : <br> اجمالي الرفع :</font></b></td><td><b>
+		<font size="2">$(bytes-out-nice) <br> $(bytes-in-nice)</font></b></td></tr>
+		
+			<tr><td align="right"><b><font size="2">تحميل هذه الجلسة:</font></b></td><td><b>
+		<font size="2">$(bytes-total-nice)</font></b></td></tr>
+
+			<tr><td align="right"><b><font size="2">الوقت المتبقي:</font></b></td><td><b>
+		<font size="2">$(session-time-left)</font></b></td></tr>
+		
+					<tr><td align="right"><b><font size="2">التحميل المتبقي:</font></b></td><td><b>
+		<font size="2">$(remain-bytes-total-nice)</font></b></td></tr>
+ 
+
+</table>
+
+
+
+                <form action="$(link-login)" name="login" onSubmit="return openLogin()">
+                <input type="submit" value="تسجيل الدخول">
+                </form>
+            </div>
+        </div>
+    </div>
+
+	
+	
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+﻿<html>
+<head>
+$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />   
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>معلومات الاستخدام</title>
+<link rel="stylesheet" href="style.css">
+<script language="JavaScript">
+
+function readablizeBytes(bytes) {
+var s = ['bytes', 'kb', 'MB', 'GB', 'TB', 'PB'];
+var e = Math.floor(Math.log(bytes)/Math.log(1024));
+return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+}
+
+</script>
+<script>
+
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+	if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+	popup = open('$(link-advert)', 'hotspot_advert', '');
+	setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+    function openLogout() {
+	if (window.name != 'hotspot_status') return true;
+        open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+	window.close();
+	return false;
+    }
+</script>
+    
+</head>
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap">
+			
+ 
+						
+					<!-- 	-->
+               <img src="1.png" width="100%" />
+						
+
+                <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+<table border="0" class="tabula" dir="rtl">
+<h1><font size="2">$(if login-by == 'trial')
+	<br><div style="text-align: center;">مرحباً بك , نرجوا لك تجربة ممتعة في خدمة الانترنت المجانية!</div><br>
+$(elif login-by != 'mac')
+<div style="display:none;">$(username)!</div>
+            
+	<br><div style="text-align: center;"><font color="#FF0000">
+<span style="background-color: #00FF00">تم تسجيل الدخول بنجاح</span></font>
+<br>
+بيانات الاستخدام</div><br>
+$(endif)
+	</font></h1>
+ 
+ 
+ 
+			<tr><td align="right"><b><font size="2">متصل منذ:</font></b></td><td><b>
+		<font size="2">$(uptime)</font></b></td></tr>
+		
+	<tr><td align="right"><b><font size="2">اجمالي التحميل : <br> اجمالي الرفع :</font></b></td><td><b>
+		<font size="2">$(bytes-out-nice) <br> $(bytes-in-nice)</font></b></td></tr>
+		
+			<tr><td align="right"><b><font size="2">تحميل هذه الجلسة:</font></b></td><td><b>
+		<font size="2">$(bytes-total-nice)</font></b></td></tr>
+
+			<tr><td align="right"><b><font size="2">الوقت المتبقي:</font></b></td><td><b>
+		<font size="2">$(session-time-left)</font></b></td></tr>
+		
+					<tr><td align="right"><b><font size="2">التحميل المتبقي:</font></b></td><td><b>
+		<font size="2">$(remain-bytes-total-nice)</font></b></td></tr>
+ 
+
+</table>
+                    $(if login-by-mac != 'yes')
+                    <!-- user manager link. if user manager resides on other router, replace $(hostname) by its address
+                    <button onclick="document.location='http://$(hostname)/user?subs='; return false;">status</button>
+                    <!-- end of user manager link -->
+                    <input type="submit" value="تسجيل الخروج">
+                    
+                </form>
+				<form action="$(link-logout)" name="logout_ec"><!-- onSubmit="return openLogout_Erase_Cookie()">-->
+<input name="erase-cookie" value="on" type="hidden">
+ <input type="submit" value="خروج نهائي">
+ 
+  <br>
+ <br>
+ 
+</form>
+$(endif)
+<hr />
+				<H2 class="info">
+			للشكاوى والاقتراحات يرجى التواصل معنا
+					
+
+			<a  style="text-decoration:none" href="tel:770493928"><font size="2">770493928
+<br>
+</font></a>
+
+</H2>
+				
+				 <br><br>
+				<hr />
+				 <br><br>
+<p class="info bt"> <b><font >برمجة المهندس : أحمد عسلان </font></b></p>
+            </div>
+        </div>
+		
+		                
+						
+						
+    </div>
+</body>
+</html>

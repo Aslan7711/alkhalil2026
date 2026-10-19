@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<style>
+    /* 2. تنسيق مظهر مربع الإدخال */
+    #username {
+        justify-content: center; /* توسيط أفقي */
+        text-align: center;      /* توسيط النص داخل المربع */
+        padding: 12px 12px;      /* مساحة داخلية (طول وعرض) */
+        font-size: 20px;         /* حجم الخط */
+        border: 2px solid #ddd;  /* لون الإطار */
+        border-radius: 8px;      /* زوايا منحنية */
+        outline: none;           /* إزالة الإطار الافتراضي عند الضغط */
+        transition: 0.3s;        /* تأثير ناعم عند التفاعل */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* ظل خفيف */
+    }
+
+    /* 3. تغيير لون الإطار عند النقر (Focus) */
+    #username:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    }
+</style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>الخليل نت</title>
+    <link rel="stylesheet" href="style.css">
+ 
+<script>
+//كود الدخول الاساسي , من هنا يتم تغيير نوعية الصفحة
+//1 تعني كلمة مرور واسم مستخدم , يتم في هذه الطريقه عرض مربع كلمة المرور
+//2 تعني كلمة مرور مشابهه لاسم المستخدم , يتم في هذه الطريقه اخفاء مربع كلمة المرور
+//3 تعني كلمة مرور فارغة , يتم في هذه الحالة اخفاء كلمة المرور
+
+		var pagetype = 3;
+		function logingo(typep,u,p) {
+			if (typep == 1) {
+			document.sendin.password.value = hexMD5('$(chap-id)' + p + '$(chap-challenge)');
+			rem(u,p);
+			} else if (typep == 2){
+			document.sendin.password.value = hexMD5('$(chap-id)' + u + '$(chap-challenge)');
+			rem(u,u);
+			} else if (typep == 3){
+			document.sendin.password.value = hexMD5('$(chap-id)' + "" + '$(chap-challenge)');
+			rem(u,"");
+			}
+		}
+        function doLogin() {
+		convertToArabic2(login.username);
+		convertToArabic2(login.password);
+		
+		var u = document.login.username.value;
+		document.sendin.username.value = u;
+		
+		var p = document.login.password.value;
+		logingo(pagetype,u,p);
+		document.sendin.submit();
+		return false;
+        }
+		
+	function loadpage(typep){
+			if (typep == 1) {
+			} else if (typep == 2){
+			var x = document.getElementById("img");
+			x.style.display = "none";
+			var xs = document.getElementById("pwd");
+			xs.type="hidden";
+			//متشابهات
+			} else if (typep == 3){
+			//كلمة مرور فارغة
+			var x = document.getElementById("img");
+			x.style.display = "none";
+			var xs = document.getElementById("pwd");
+			xs.type="hidden";
+			}
+	}
+//حفظ الكوكيز في المتصفح
+	function rem(u,p){
+	var uname = u;
+    var paswd= p;
+    var date = new Date();
+    date.setTime(date.getTime()+(5*1000));
+    var expires = date.toGMTString();
+    date.setTime(date.getTime()+(259200*1000*33));
+    var expire  = date.toGMTString();
+    document.cookie = 'uname='+uname+';expires='+expire+'';
+    document.cookie = 'paswd='+paswd+';expires='+expire+'';
+    document.cookie = 'error=1;expires='+expires+'';
+	return "";
+	}
+
+	
+//حظر المخترقين
+function setCookie(cname,cvalue,exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*10*1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie() {
+    var user=getCookie("hacker");
+    if (user >= 7) {
+        window.location = "hacker.html";
+    } else {
+	var counts;
+	counts=Number(user);
+	setCookie("hacker", counts+1, 60);
+    }
+}
+
+	function getCookieu(){
+	var date = new Date();
+    date.setTime(date.getTime()+(5*1000));
+    var expires = date.toGMTString();
+
+    var SP = document.cookie.split(';');
+    for (i=0; i < SP.length; i++) {
+    name_value = SP[i];
+    str = name_value.substring(0,6);
+	
+    if(str.indexOf("uname") !== -1){
+    uname = name_value.split('=');
+    uname = uname[1];
+    }
+	
+    if(str.indexOf("paswd") !== -1){
+	 
+    paswd = name_value.split('=');
+    paswd = paswd[1];
+    }
+
+    if(str.indexOf("error") !== -1){
+    return;
+    }
+
+    }
+     
+    if(uname != ""){
+    document.cookie = 'error=1;expires='+expires+'';
+    window.location.href='login?username='+uname+'&password='+paswd+'';
+    }
+
+    }
+   getCookieu();
+   
+   //تحويل الارقام العربية
+   
+   function convertToArabic2(enNumbers) {
+var x=enNumbers.value.replace("٠","0").replace("١","1").replace("٢","2").replace("٣","3").replace("٤","4").replace("٥","5").replace("٦","6").replace("٧","7").replace("٨","8").replace("٩","9").replace(" ","").replace("٠","0").replace("١","1").replace("٢","2").replace("٣","3").replace("٤","4").replace("٥","5").replace("٦","6").replace("٧","7").replace("٨","8").replace("٩","9").replace(" ","").replace("٠","0").replace("١","1").replace("٢","2").replace("٣","3").replace("٤","4").replace("٥","5").replace("٦","6").replace("٧","7").replace("٨","8").replace("٩","9").replace(" ","").replace("٠","0").replace("١","1").replace("٢","2").replace("٣","3").replace("٤","4").replace("٥","5").replace("٦","6").replace("٧","7").replace("٨","8").replace("٩","9").replace(" ","").replace("٠","0").replace("١","1").replace("٢","2").replace("٣","3").replace("٤","4").replace("٥","5").replace("٦","6").replace("٧","7").replace("٨","8").replace("٩","9").replace(" ","").toLowerCase();
+enNumbers.value=x;
+        }
+</script>
+
+</head>
+<body onload="checkCookie()">
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="$(link-orig)" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+
+    <script src="/md5.js"></script>
+    <script>
+    </script>
+    $(endif)
+    <div class="ie-fixMinHeight">
+        <div class="main">
+            <div class="wrap animated fadeIn">
+                <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()" $(endif)>
+                    <input type="hidden" name="dst" value="$(link-orig)" />
+                    <input type="hidden" name="popup" value="true" />
+
+               <img src="1.png" width="100%" />
+			     <h1> شبكة الخليل ترحب بكم</h1>
+		<marquee class="marquee" direction="right" scrollamount="3" style="color: #fff;background-color: #FF0000 ;">سرعات عالية - باقات برصيد اكبر - صلاحيات اوسع</marquee>
+			<marquee class="marquee" direction="right" scrollamount="6" style="color: #000000;background-color: #fff ;">يمكنك شراء الكروت من المحلات القريبة من الشبكة</marquee>
+			<marquee class="marquee" direction="right" scrollamount="4" style="color: #fff;background-color: #000000 ;">شبكة الخليل دوما معك في كل الاوقات </marquee>
+			
+					<div style="background-color: #FF0000">
+					
+<p class="info $(if error)alert$(endif)">
+<font color="#000000">$(if error)
+
+<script type="text/javascript">
+</script>
+$(endif)
+</font>
+</p>
+
+                    </div>
+
+                    <label>
+                        <input id="username" name="username" type="text" value="" placeholder="رمز الدخول"  required  />
+                    </label>
+                    <label>
+                        <input id="pwd" name="password" type="password" placeholder="كلمة المرور" />
+                    </label>
+
+                    <input type="submit" value="تسجيل الدخول" />
+
+<script type="text/javascript">
+loadpage(pagetype);
+</script>
+<br>
+
+ </form>
+				$(if trial == 'yes')
+<a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)">
+<input type="submit" onclick="return true;" value="الحصول على دقائق مجانية" />
+</a>
+ <br>
+$(endif)
+
+<script type="text/javascript">
+loadpage(pagetype);
+</script>
+<br>
+
+<img id="adBanner" src="ad1.png" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;" />
+<script type="text/javascript">
+var adImages = ["ad1.png", "ad2.png", "ad3.png"];
+setInterval(function() {
+    var randomIndex = Math.floor(Math.random() * adImages.length);
+    document.getElementById("adBanner").src = adImages[randomIndex];
+}, 5000);
+</script>
+
+				<H2 class="info"> لدينا اشتراكات شهرية مفتوحة  
+				<p>
+				للاشتراك التواصل مع خدمة العملاء <a   href="tel:770493928"><font size="2">770493928
+<br>
+</font></a></h2>
+<br>
+<hr />
+<a style="display:none;" href="2.jpg"><button type="button" style="width: 100%; background-color: #92d097; border: 1px solid white; border-radius: 6px; padding: 10px 20px; font-size: 14px;" class="form-control display-7" id="username-form3-m">
+000</button></a>
+<h1><i class="fa fa-credit-card faa-flash animated"></i> اسعار الكروت والاشتراكات</h1>
+<hr />
+<table dir="rtl" class="table" style="font-size:20px" ;="" cellpadding="2" align="right">
+				<tbody><tr class="auto-style19" style="" ;="">
+					<td class="auto-style18">السعر</td>
+					<td class="auto-style18">الرصيد</td>
+					<td class="auto-style18">الصلاحية</td>
+					
+                    </tr>
+				<tr>
+					<td class="auto-style20"><strong>200</strong></td>
+					<td class="auto-style20"><strong>1 جيجا</strong></td>
+					<td class="auto-style20"><strong>5 ايام</strong></td>
+					
+				</tr>
+<tr>
+					<td class="auto-style20"><strong>500</strong></td>
+					<td class="auto-style20"><strong>3 جيجا</strong></td>
+					<td class="auto-style20"><strong>7 ايام</strong></td>
+					
+				</tr>
+<tr>
+					<td class="auto-style20"><strong>1000</strong></td>
+					<td class="auto-style20"><strong>8 جيجا</strong></td>
+					<td class="auto-style20"><strong>10 ايام</strong></td>
+					
+				</tr>
+<tr>
+					<td class="auto-style20"><strong>2500</strong></td>
+					<td class="auto-style20"><strong>25 جيجا</strong></td>
+					<td class="auto-style20"><strong>شهر</strong></td>
+					
+				</tr>
+<tr>
+					<td class="auto-style20"><strong>8000</strong></td>
+					<td class="auto-style20"><strong>بلا حدود (جهاز واحد)</strong></td>
+					<td class="auto-style20"><strong>شهر</strong></td>
+				
+				</tr>
+<tr>
+					<td class="auto-style20"><strong>14000</strong></td>
+					<td class="auto-style20"><strong>بلا حدود (جهازين)</strong></td>
+					<td class="auto-style20"><strong>شهر</strong></td>
+					
+				</tr>
+			</tbody></table>
+
+               </form>
+				
+<br>
+		 	<hr />	
+				<H2 class="info">
+			للشكاوى والاقتراحات
+					
+			<a   href="tel:770493928"><font size="2">770493928
+<br>
+</font></a>
+
+</H2>
+				
+ <hr />
+				
+
+<p class="info bt"><b>برمجة المهندس : أحمد عسلان</font></b></p>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
